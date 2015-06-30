@@ -1,6 +1,6 @@
 package com.dominik.hptracker.modelhp;
 
-import com.dominik.hptracker.Contants;
+import com.dominik.hptracker.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +26,7 @@ public class WarjackHP extends ModelHPTemplate
 
         try
         {
-            JSONArray hpArray = jsonObject.getJSONArray(Contants.HPARRAY);
+            JSONArray hpArray = jsonObject.getJSONArray(Constants.HPARRAY);
 
             HP = new HPBox[hpArray.length()][hpArray.getJSONArray(0).length()];
 
@@ -84,7 +84,7 @@ public class WarjackHP extends ModelHPTemplate
 
         try
         {
-            jsonObject.put(Contants.HPARRAY, rows);
+            jsonObject.put(Constants.HPARRAY, rows);
         }
         catch (JSONException e)
         {

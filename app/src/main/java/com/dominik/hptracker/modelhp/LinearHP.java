@@ -2,7 +2,7 @@ package com.dominik.hptracker.modelhp;
 
 import android.util.Log;
 
-import com.dominik.hptracker.Contants;
+import com.dominik.hptracker.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +25,7 @@ public class LinearHP extends ModelHPTemplate
         super(jsonObject);
         try
         {
-            maxHP = jsonObject.getInt(Contants.HPNUMBER);
+            maxHP = jsonObject.getInt(Constants.HPNUMBER);
         }
         catch (JSONException e)
         {
@@ -40,7 +40,7 @@ public class LinearHP extends ModelHPTemplate
 
         try
         {
-            jsonObject.put(Contants.HPNUMBER, maxHP);
+            jsonObject.put(Constants.HPNUMBER, maxHP);
         }
         catch (JSONException e)
         {

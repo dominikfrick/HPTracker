@@ -2,7 +2,7 @@ package com.dominik.hptracker.modelhp;
 
 import android.util.Log;
 
-import com.dominik.hptracker.Contants;
+import com.dominik.hptracker.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +29,7 @@ abstract class ModelHPTemplate
         this.jsonObject = jsonObject;
         try
         {
-            name = jsonObject.getString(Contants.NAME);
+            name = jsonObject.getString(Constants.NAME);
         }
         catch (JSONException e)
         {
