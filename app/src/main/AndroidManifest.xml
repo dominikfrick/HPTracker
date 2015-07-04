@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SecondActivity"
+            android:name=".NewWarcasterActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.SECOND" />
