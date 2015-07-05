@@ -14,11 +14,11 @@
         android:text="Name"
         android:ems="10"
         android:id="@+id/editText"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView4"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
         android:id="@+id/textView2"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/editText"
-        android:layout_alignParentLeft="true"/>
+        android:layout_alignParentRight="true"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -37,9 +37,7 @@
         android:id="@+id/editText2"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/editText"
-        android:layout_alignEnd="@+id/editText"/>
+        android:layout_alignParentRight="true"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -52,8 +50,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Warcaster:"
-        android:id="@+id/textView3"
+        android:text="New Solo:"
+        android:id="@+id/textView4"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>

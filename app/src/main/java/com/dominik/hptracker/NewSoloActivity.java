@@ -4,18 +4,16 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.CheckBox;
-import android.widget.LinearLayout;
 
 
-public class NewWarcasterActivity extends ActionBarActivity
+public class NewSoloActivity extends ActionBarActivity
 {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_newwarcaster);
+        setContentView(R.layout.activity_newsolo);
     }
 
     @Override

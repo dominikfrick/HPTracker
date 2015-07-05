@@ -20,11 +20,10 @@ public class MainActivity extends ActionBarActivity
         Button myButton = (Button) findViewById(R.id.button1);
         myButton.setOnClickListener(new View.OnClickListener()
         {
-
             @Override
             public void onClick(View v)
             {
-                startActivity (new Intent(MainActivity.this, NewWarcasterActivity.class));
+                startActivity (new Intent(MainActivity.this, NewWarjackActivity.class));
             }
         });
     }

@@ -4,18 +4,43 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.CheckBox;
-import android.widget.LinearLayout;
+import android.view.View;
+import android.widget.*;
 
 
-public class NewWarcasterActivity extends ActionBarActivity
+public class NewWarjackActivity extends ActionBarActivity
 {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_newwarcaster);
+        ScrollView sv = new ScrollView(this);
+        LinearLayout ll = new LinearLayout(this);
+        ll.setOrientation(LinearLayout.VERTICAL);
+        sv.addView(ll);
+
+        TextView tv = new TextView(this);
+        tv.setText("New Warjack:");
+        ll.addView(tv);
+
+        EditText nm = new EditText(this);
+        nm.setText("NAME");
+        ll.addView(nm);
+
+        for (int i = 0; i <6; i++)
+        {
+            CheckBox ch = new CheckBox(getApplicationContext());
+            ch.setText("");
+            ll.addView(ch);
+        }
+
+        Button create = new Button(this);
+        create.setText("CREATE");
+        ll.addView(create);
+
+        setContentView(sv);
+        //R.layout.activity_newwarjack
     }
 
     @Override

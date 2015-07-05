@@ -20,7 +20,34 @@
             android:name=".NewWarcasterActivity"
             android:label="@string/app_name" >
             <intent-filter>
-                <action android:name="android.intent.action.SECOND" />
+                <action android:name="android.intent.action.NewWarcaster" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".NewWarjackActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.NewWarjack" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".NewSoloActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.NewSolo" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".NewTroopActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.NewTroop" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
