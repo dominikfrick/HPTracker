@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 
 
 public class MainActivity extends ActionBarActivity
@@ -18,12 +19,29 @@ public class MainActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button myButton = (Button) findViewById(R.id.button1);
+        final Spinner dropdown = (Spinner) findViewById(R.id.dropdown1);
         myButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                startActivity (new Intent(MainActivity.this, NewWarjackActivity.class));
+                String page = dropdown.getSelectedItem().toString();
+                if (page.equals("Warcaster"))
+                {
+                    startActivity (new Intent(MainActivity.this, NewWarcasterActivity.class));
+                }
+                else if (page.equals("Warjack"))
+                {
+                    startActivity (new Intent(MainActivity.this, NewWarjackActivity.class));
+                }
+                else if (page.equals("Solo"))
+                {
+                    startActivity (new Intent(MainActivity.this, NewSoloActivity.class));
+                }
+                else
+                {
+                    startActivity (new Intent(MainActivity.this, NewTroopActivity.class));
+                }
             }
         });
     }
