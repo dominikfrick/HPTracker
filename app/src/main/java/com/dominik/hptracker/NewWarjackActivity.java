@@ -36,6 +36,8 @@ public class NewWarjackActivity extends ActionBarActivity
             {
                 CheckBox ch = new CheckBox(getApplicationContext());
                 ch.setText("");
+                ch.setBackgroundColor(0x00FF00);
+                ch.setHighlightColor(0x00FF00);
                 ll2.addView(ch);
             }
             ll.addView(ll2);
