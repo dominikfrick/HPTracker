@@ -10,11 +10,15 @@ import android.widget.*;
 
 public class NewWarjackActivity extends ActionBarActivity
 {
+    private CheckBox[][] checkBoxes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        checkBoxes = new CheckBox[6][6];
+
         ScrollView sv = new ScrollView(this);
         LinearLayout ll = new LinearLayout(this);
         ll.setOrientation(LinearLayout.VERTICAL);
@@ -35,6 +39,7 @@ public class NewWarjackActivity extends ActionBarActivity
             for (int j = 0; j <6; j++)
             {
                 CheckBox ch = new CheckBox(getApplicationContext());
+                checkBoxes[i][j] = ch;
                 ch.setText("");
                 ch.setBackgroundColor(0x00FF00);
                 ch.setHighlightColor(0x00FF00);
