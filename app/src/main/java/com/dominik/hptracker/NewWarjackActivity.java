@@ -28,11 +28,17 @@ public class NewWarjackActivity extends ActionBarActivity
         nm.setText("NAME");
         ll.addView(nm);
 
-        for (int i = 0; i <6; i++)
+        for (int i = 0; i < 6; i++)
         {
-            CheckBox ch = new CheckBox(getApplicationContext());
-            ch.setText("");
-            ll.addView(ch);
+            LinearLayout ll2 = new LinearLayout(this);
+            ll2.setOrientation(LinearLayout.HORIZONTAL);
+            for (int j = 0; j <6; j++)
+            {
+                CheckBox ch = new CheckBox(getApplicationContext());
+                ch.setText("");
+                ll2.addView(ch);
+            }
+            ll.addView(ll2);
         }
 
         Button create = new Button(this);
