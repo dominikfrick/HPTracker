@@ -1,15 +1,15 @@
 package com.dominik.hptracker;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.*;
 
+import java.util.ArrayList;
 
-public class NewWarjackActivity extends ActionBarActivity
+
+public class NewWarjackSystemsActivity extends ActionBarActivity
 {
     private CheckBox[][] checkBoxes;
 
@@ -26,16 +26,11 @@ public class NewWarjackActivity extends ActionBarActivity
         sv.addView(ll);
 
         TextView tv = new TextView(this);
-        tv.setText("New Warjack:");
+        tv.setText("Write the letter representing the system you wish to add:");
         ll.addView(tv);
 
         EditText nm = new EditText(this);
-        nm.setText("NAME");
         ll.addView(nm);
-
-        TextView tv2 = new TextView(this);
-        tv2.setText("Select all applicable health squares.");
-        ll.addView(tv2);
 
         for (int i = 0; i < 6; i++)
         {
@@ -53,19 +48,9 @@ public class NewWarjackActivity extends ActionBarActivity
             ll.addView(ll2);
         }
 
-        Button nextStep = new Button(this);
-        nextStep.setText("Continue to system layout");
-        ll.addView(nextStep);
-
-        nextStep.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                startActivity(new Intent(NewWarjackActivity.this, NewWarjackSystemsActivity.class));
-            }
-        });
-
+        Button create = new Button(this);
+        create.setText("Continue to system layout");
+        ll.addView(create);
 
         setContentView(sv);
         //R.layout.activity_newwarjack
