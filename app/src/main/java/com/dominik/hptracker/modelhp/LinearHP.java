@@ -15,9 +15,10 @@ public class LinearHP extends ModelHPTemplate
     public int maxHP;
     public int currentHP;
 
-    public LinearHP(String name)
+    public LinearHP(String name, int HP)
     {
         super(name);
+        maxHP = HP;
     }
 
     public LinearHP(JSONObject jsonObject)

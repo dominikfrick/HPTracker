@@ -13,7 +13,7 @@
         android:inputType="textPersonName"
         android:text="Name"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/name"
         android:layout_below="@+id/textView5"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:text="Number of Models:"
         android:id="@+id/textView6"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/name"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
@@ -75,8 +75,8 @@
         android:layout_below="@+id/textView6"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editText"
-        android:layout_alignEnd="@+id/editText"/>
+        android:layout_alignRight="@+id/name"
+        android:layout_alignEnd="@+id/name"/>
 
 
 </RelativeLayout>
