@@ -35,7 +35,7 @@ public class LinearHP extends ModelHPTemplate
     }
 
     @Override
-    void writeToJSON()
+    public void writeToJSON()
     {
         super.writeToJSON();
 

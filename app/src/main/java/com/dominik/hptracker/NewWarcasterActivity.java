@@ -1,42 +1,38 @@
 package com.dominik.hptracker;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.text.SpannableStringBuilder;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import com.dominik.hptracker.modelhp.LinearHP;
 
 
 public class NewWarcasterActivity extends ActionBarActivity
 {
+    EditText tempName;
+    EditText hp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        Button button1 = (Button) findViewById(R.id.button1);
-        final EditText name = (EditText) findViewById(R.id.name);
-        final EditText hp = (EditText) findViewById(R.id.name);
-        button1.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                String modelName = name.getText().toString();
-                int HP = Integer.parseInt(hp.getText().toString());
-                LinearHP warcaster = new LinearHP(modelName, HP);
-            }
-        });
+
+        tempName = (EditText) findViewById(R.id.name1);
+        hp = (EditText) findViewById(R.id.hp);
 
         setContentView(R.layout.activity_newwarcaster);
+    }
+
+    public void createJSONInstance(View v)
+    {
+        String modelName = tempName.getText().toString();
+        int HP = Integer.valueOf(hp.getText().toString());
+
+        LinearHP warcaster = new LinearHP(modelName, HP);
+        warcaster.writeToJSON();
     }
 
     @Override
@@ -63,4 +59,6 @@ public class NewWarcasterActivity extends ActionBarActivity
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

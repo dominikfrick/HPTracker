@@ -47,7 +47,7 @@ public class Army
         }
     }
 
-    void writeToJSON()
+    public void writeToJSON()
     {
         try
         {

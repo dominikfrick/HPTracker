@@ -50,7 +50,7 @@ public class WarjackHP extends ModelHPTemplate
     }
 
     @Override
-    void writeToJSON()
+    public void writeToJSON()
     {
         super.writeToJSON();
 
