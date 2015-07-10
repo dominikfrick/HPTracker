@@ -2,6 +2,7 @@ package com.dominik.hptracker;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,19 +21,26 @@ public class NewWarcasterActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_newwarcaster);
+
         tempName = (EditText) findViewById(R.id.name1);
         hp = (EditText) findViewById(R.id.hp);
-
-        setContentView(R.layout.activity_newwarcaster);
     }
 
     public void createJSONInstance(View v)
     {
-        String modelName = tempName.getText().toString();
-        int HP = Integer.valueOf(hp.getText().toString());
+        if(tempName.getText().toString().equals("")|| hp.getText().toString().equals(""))
+        {
+            Log.e("Error in GUI", "invalid entry");//Daniel you can do whatever you think is appropriate here
+        }
+        else
+        {
+            String modelName = tempName.getText().toString();
+            int HP = Integer.parseInt(hp.getText().toString());
 
-        LinearHP warcaster = new LinearHP(modelName, HP);
-        warcaster.writeToJSON();
+            LinearHP warcaster = new LinearHP(modelName, HP);
+            warcaster.writeToJSON();
+        }
     }
 
     @Override
