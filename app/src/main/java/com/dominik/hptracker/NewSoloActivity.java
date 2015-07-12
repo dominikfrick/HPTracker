@@ -1,19 +1,30 @@
 package com.dominik.hptracker;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+
+import com.dominik.hptracker.modelhp.LinearHP;
 
 
 public class NewSoloActivity extends ActionBarActivity
 {
+    EditText tempName;
+    EditText hp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newsolo);
+
+        tempName = (EditText) findViewById(R.id.solo_name);
+        hp = (EditText) findViewById(R.id.solo_hp);
     }
 
     @Override
@@ -22,6 +33,38 @@ public class NewSoloActivity extends ActionBarActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    private void showEmptyFieldsPopup()
+    {
+        AlertDialog.Builder emptyFieldsBuilder = new AlertDialog.Builder(this);
+        emptyFieldsBuilder.setTitle("");
+        emptyFieldsBuilder.setMessage("Please fill all fields.");
+        emptyFieldsBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int which)
+            {
+                // Do nothing but close the dialog
+            }
+        });
+        AlertDialog emptyFields = emptyFieldsBuilder.create();
+        emptyFields.show();
+    }
+
+    public void createJSONInstance(View v)
+    {
+        if(tempName.getText().toString().equals("")|| hp.getText().toString().equals(""))
+        {
+            showEmptyFieldsPopup();
+        }
+        else
+        {
+            String modelName = tempName.getText().toString();
+            int HP = Integer.parseInt(hp.getText().toString());
+
+            LinearHP warcaster = new LinearHP(modelName, HP);
+            warcaster.writeToJSON();
+        }
     }
 
     @Override
