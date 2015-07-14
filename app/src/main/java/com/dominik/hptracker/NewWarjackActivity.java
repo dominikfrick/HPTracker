@@ -155,6 +155,22 @@ public class NewWarjackActivity extends ActionBarActivity
         emptyFields.show();
     }
 
+    private void showEmptyFieldsPopup()
+    {
+        AlertDialog.Builder emptyFieldsBuilder = new AlertDialog.Builder(this);
+        emptyFieldsBuilder.setTitle("");
+        emptyFieldsBuilder.setMessage("Please fill all fields.");
+        emptyFieldsBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int which)
+            {
+                // Do nothing but close the dialog
+            }
+        });
+        AlertDialog emptyFields = emptyFieldsBuilder.create();
+        emptyFields.show();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
