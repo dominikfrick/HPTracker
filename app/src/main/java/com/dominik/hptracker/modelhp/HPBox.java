@@ -7,7 +7,7 @@ import org.json.JSONObject;
  */
 public class HPBox
 {
-    String system;
+    public String system;
     boolean damaged;
 
     public  HPBox(String system)
