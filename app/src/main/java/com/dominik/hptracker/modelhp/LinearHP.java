@@ -17,7 +17,7 @@ public class LinearHP extends ModelHPTemplate
 
     public LinearHP(String name, int HP)
     {
-        super(name);
+        super(name, Constants.LINEAR);
         maxHP = HP;
     }
 

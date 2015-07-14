@@ -51,7 +51,8 @@ public class Army
     {
         try
         {
-            jsonObject.put("name", name);
+            jsonObject.put(Constants.NAME, name);
+            jsonObject.put(Constants.ARMY, name);
             JSONArray jsonArray = new JSONArray(Constants.ARMYARRAY);
             for (String modelHPTemplate : units)
             {
@@ -69,7 +70,7 @@ public class Army
     {
         try
         {
-            FileWriter file = new FileWriter(name + "Army.json");
+            FileWriter file = new FileWriter(name + ".json");
             try
             {
                 file.write(jsonObject.toString());

@@ -16,11 +16,13 @@ import java.io.IOException;
 abstract class ModelHPTemplate
 {
     String name;
+    String type;
     JSONObject jsonObject;
 
-    public ModelHPTemplate(String name)
+    public ModelHPTemplate(String name, String type)
     {
         this.name = name;
+        this.type = type;
         jsonObject = new JSONObject();
     }
 
@@ -30,6 +32,7 @@ abstract class ModelHPTemplate
         try
         {
             name = jsonObject.getString(Constants.NAME);
+            type = jsonObject.getString(Constants.TYPE);
         }
         catch (JSONException e)
         {
@@ -41,7 +44,8 @@ abstract class ModelHPTemplate
     {
         try
         {
-            jsonObject.put("name", name);
+            jsonObject.put(Constants.NAME, name);
+            jsonObject.put(Constants.TYPE, type);
         }
         catch (JSONException e)
         {

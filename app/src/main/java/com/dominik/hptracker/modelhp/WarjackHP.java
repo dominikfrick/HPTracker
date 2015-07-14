@@ -15,7 +15,7 @@ public class WarjackHP extends ModelHPTemplate
 
     public WarjackHP(String name, int rows, int columns)
     {
-        super(name);
+        super(name, Constants.WARJACK);
 
         HP = new HPBox[rows][columns];
     }
