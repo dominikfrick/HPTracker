@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.dominik.hptracker.modelhp.HPBox;
 import com.dominik.hptracker.modelhp.WarjackHP;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -60,7 +62,14 @@ public class NewArmyActivity extends ActionBarActivity
             CheckBox ch = new CheckBox(getApplicationContext());
             checkboxes.add(ch);
             JSONObject obj = new JSONObject();
-            obj.getJSONObject(files[i].getName());
+            try
+            {
+                obj.getJSONObject(files[i].getAbsolutePath());
+            }
+            catch (JSONException e)
+            {
+                Log.d("JSONParse", e.getStackTrace().toString());
+            }
         }
 
         setContentView(sv);
