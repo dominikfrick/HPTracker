@@ -41,7 +41,7 @@ public class NewWarcasterActivity extends ActionBarActivity
 
             LinearHP warcaster = new LinearHP(modelName, HP);
             warcaster.writeToJSON();
-            warcaster.writeJSONToFile();
+            warcaster.writeJSONToFile(getApplicationContext());
         }
     }
 

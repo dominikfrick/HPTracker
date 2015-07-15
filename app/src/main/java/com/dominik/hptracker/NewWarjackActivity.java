@@ -130,7 +130,7 @@ public class NewWarjackActivity extends ActionBarActivity
                     else
                     {
                         warjack.writeToJSON();
-                        warjack.writeJSONToFile();
+                        warjack.writeJSONToFile(getApplicationContext());
                     }
                 }
             }

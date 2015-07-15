@@ -1,5 +1,7 @@
 package com.dominik.hptracker.modelhp;
 
+import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 import com.dominik.hptracker.Constants;
@@ -7,8 +9,7 @@ import com.dominik.hptracker.Constants;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.FileOutputStream;
 
 /**
  * Created by Dominik on 6/18/2015.
@@ -54,24 +55,15 @@ abstract class ModelHPTemplate
         }
     }
 
-    public final void writeJSONToFile()
+    public final void writeJSONToFile(Context context)
     {
         try
         {
-            FileWriter file = new FileWriter(name + ".json");
-            try
-            {
-                file.write(jsonObject.toString());
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-
-            } finally
-            {
-                file.close();
-            }
+            FileOutputStream fos = context.openFileOutput(name, Context.MODE_PRIVATE);
+            fos.write(jsonObject.toString().getBytes());
+            fos.close();
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
