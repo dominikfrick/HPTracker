@@ -54,7 +54,7 @@ abstract class ModelHPTemplate
         }
     }
 
-    final void writeJSONToFile()
+    public final void writeJSONToFile()
     {
         try
         {

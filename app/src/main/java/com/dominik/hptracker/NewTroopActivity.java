@@ -52,6 +52,7 @@ public class NewTroopActivity extends ActionBarActivity
 
                 LinearHP troop = new LinearHP(modelName.concat(Integer.toString(i)), HP);
                 troop.writeToJSON();
+                troop.writeJSONToFile();
             }
 
         }

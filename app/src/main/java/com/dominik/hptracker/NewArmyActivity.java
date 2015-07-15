@@ -36,21 +36,21 @@ public class NewArmyActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
 
-        File f = new File("/");
+        File f = getFilesDir();
         File files[];
         FilenameFilter filter = new FilenameFilter()
         {
             @Override
             public boolean accept(File dir, String filename)
             {
-                if (filename.substring(filename.length()-5).equals(".json"))
+                if (filename.length() >= 5 && filename.substring(filename.length()-5).toUpperCase().equals(".JSON"))
                 {
                     return true;
                 }
                 return false;
             }
         };
-        files = f.listFiles(filter);
+        files = f.listFiles();
 
         ScrollView sv = new ScrollView(this);
         final LinearLayout ll = new LinearLayout(this);
@@ -64,12 +64,22 @@ public class NewArmyActivity extends ActionBarActivity
             JSONObject obj = new JSONObject();
             try
             {
-                obj.getJSONObject(files[i].getAbsolutePath());
+                obj = obj.getJSONObject(files[i].getAbsolutePath());
             }
             catch (JSONException e)
             {
                 Log.d("JSONParse", e.getStackTrace().toString());
             }
+            //try
+            //{
+                ch.setText(files[i].getName());
+                ch.setTextColor(Color.BLACK);
+            /*}
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }*/
+            ll.addView(ch);
         }
 
         setContentView(sv);
