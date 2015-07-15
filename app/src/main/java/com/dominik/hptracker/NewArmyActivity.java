@@ -70,6 +70,7 @@ public class NewArmyActivity extends ActionBarActivity
             {
                 Log.d("JSONParse", e.getStackTrace().toString());
             }
+
             //try
             //{
                 ch.setText(files[i].getName());
