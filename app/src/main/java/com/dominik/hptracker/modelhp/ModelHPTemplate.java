@@ -9,6 +9,7 @@ import com.dominik.hptracker.Constants;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileOutputStream;
 
 /**
@@ -59,7 +60,7 @@ abstract class ModelHPTemplate
     {
         try
         {
-            FileOutputStream fos = context.openFileOutput(name, Context.MODE_PRIVATE);
+            FileOutputStream fos = context.openFileOutput(name + ".json", Context.MODE_PRIVATE);
             fos.write(jsonObject.toString().getBytes());
             fos.close();
         }

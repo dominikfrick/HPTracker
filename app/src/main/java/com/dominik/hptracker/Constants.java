@@ -15,6 +15,4 @@ public class Constants
     public static String WARJACK = "warjack";
     public static String LINEAR = "linear";
     public static String ARMY = "army";
-
-    public static String HPBOXSYSTEM = "HPboxsystem";
 }

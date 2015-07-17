@@ -23,7 +23,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -57,30 +60,57 @@ public class NewArmyActivity extends ActionBarActivity
         ll.setOrientation(LinearLayout.VERTICAL);
         sv.addView(ll);
 
+        CheckBox ch = new CheckBox(getApplicationContext());
+        ch.setText(getFilesDir().toString());
+        ll.addView(ch);
+
         for (int i = 0; i < files.length; i++)
         {
-            CheckBox ch = new CheckBox(getApplicationContext());
+            CheckBox ch2 = new CheckBox(getApplicationContext());
             checkboxes.add(ch);
-            JSONObject obj = new JSONObject();
+            JSONObject obj;
             try
             {
-                obj = obj.getJSONObject(files[i].getAbsolutePath());
+                FileInputStream fis = openFileInput(files[i].getName());
+                StringBuilder stringBuilder = new StringBuilder();
+                int c;
+                try
+                {
+                    while ((c = fis.read()) != -1)
+                    {
+                        stringBuilder.append(c);
+                    }
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+                try
+                {
+                    obj = new JSONObject(stringBuilder.toString());
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
             }
-            catch (JSONException e)
+            catch (FileNotFoundException e)
             {
-                Log.d("JSONParse", e.getStackTrace().toString());
+                e.printStackTrace();
             }
+
 
             //try
             //{
-                ch.setText(files[i].getName());
-                ch.setTextColor(Color.BLACK);
+            ch2.setText(files[i].getName());
+
+                ch2.setTextColor(Color.BLACK);
             /*}
             catch (JSONException e)
             {
                 e.printStackTrace();
             }*/
-            ll.addView(ch);
+            ll.addView(ch2);
         }
 
         setContentView(sv);
