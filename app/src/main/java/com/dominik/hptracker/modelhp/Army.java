@@ -1,5 +1,6 @@
 package com.dominik.hptracker.modelhp;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.dominik.hptracker.Constants;
@@ -8,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 public class Army
 {
     String name;
-    ArrayList<String> units;
+    public ArrayList<String> units;
     JSONObject jsonObject;
 
     public Army(String name)
@@ -66,26 +68,15 @@ public class Army
         }
     }
 
-    final void writeJSONToFile()
+    public final void writeJSONToFile(Context context)
     {
         try
         {
-            FileWriter file = new FileWriter(name + ".json");
-            try
-            {
-                file.write(jsonObject.toString());
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-
-            }
-            finally
-            {
-                file.close();
-            }
+            FileOutputStream fos = context.openFileOutput(name + ".json", Context.MODE_PRIVATE);
+            fos.write(jsonObject.toString().getBytes());
+            fos.close();
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }

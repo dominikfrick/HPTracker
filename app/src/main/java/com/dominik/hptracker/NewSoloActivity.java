@@ -2,6 +2,7 @@ package com.dominik.hptracker;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -62,9 +63,10 @@ public class NewSoloActivity extends ActionBarActivity
             String modelName = tempName.getText().toString();
             int HP = Integer.parseInt(hp.getText().toString());
 
-            LinearHP warcaster = new LinearHP(modelName, HP);
-            warcaster.writeToJSON();
-            warcaster.writeJSONToFile(getApplicationContext());
+            LinearHP solo = new LinearHP(modelName, HP);
+            solo.writeToJSON();
+            solo.writeJSONToFile(getApplicationContext());
+            startActivity(new Intent(NewSoloActivity.this, MainActivity.class));
         }
     }
 

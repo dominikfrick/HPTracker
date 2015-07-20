@@ -2,9 +2,11 @@ package com.dominik.hptracker;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.dominik.hptracker.modelhp.Army;
 import com.dominik.hptracker.modelhp.HPBox;
 import com.dominik.hptracker.modelhp.WarjackHP;
 
@@ -32,7 +35,9 @@ import java.util.ArrayList;
 
 public class NewArmyActivity extends ActionBarActivity
 {
-    ArrayList<CheckBox> checkboxes = new ArrayList<CheckBox>();
+    ArrayList<TextView> textViews = new ArrayList<TextView>();
+    ArrayList<EditText> editTexts = new ArrayList<EditText>();
+    Army army;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -60,14 +65,25 @@ public class NewArmyActivity extends ActionBarActivity
         ll.setOrientation(LinearLayout.VERTICAL);
         sv.addView(ll);
 
-        CheckBox ch = new CheckBox(getApplicationContext());
-        ch.setText(getFilesDir().toString());
-        ll.addView(ch);
+        TextView tv = new TextView(this);
+        tv.setText("Army Name:");
+        ll.addView(tv);
+
+        final EditText nm = new EditText(this);
+        nm.setText("");
+        ll.addView(nm);
 
         for (int i = 0; i < files.length; i++)
         {
-            CheckBox ch2 = new CheckBox(getApplicationContext());
-            checkboxes.add(ch);
+            LinearLayout ll2 = new LinearLayout(this);
+            ll2.setOrientation(LinearLayout.HORIZONTAL);
+
+            final EditText num = new EditText(this);
+            num.setInputType(InputType.TYPE_CLASS_NUMBER);
+            num.setText("0");
+
+
+            TextView textView = new TextView(getApplicationContext());
             JSONObject obj;
             try
             {
@@ -78,7 +94,7 @@ public class NewArmyActivity extends ActionBarActivity
                 {
                     while ((c = fis.read()) != -1)
                     {
-                        stringBuilder.append(c);
+                        stringBuilder.append(Character.toChars(c));
                     }
                 }
                 catch (IOException e)
@@ -88,6 +104,20 @@ public class NewArmyActivity extends ActionBarActivity
                 try
                 {
                     obj = new JSONObject(stringBuilder.toString());
+                    if (obj.getString(Constants.TYPE).equals("linear"))
+                    {
+                        textView.setText(obj.getString(Constants.NAME) + " - " + obj.getString(Constants.HPNUMBER));
+                        textView.setTextColor(Color.BLACK);
+                    }
+                    else if (obj.getString(Constants.TYPE).equals("warjack"))
+                    {
+                        textView.setText(obj.getString(Constants.NAME));
+                        textView.setTextColor(Color.BLACK);
+                    }
+                    editTexts.add(num);
+                    textViews.add(textView);
+                    ll2.addView(num);
+                    ll2.addView(textView);
                 }
                 catch (JSONException e)
                 {
@@ -98,22 +128,85 @@ public class NewArmyActivity extends ActionBarActivity
             {
                 e.printStackTrace();
             }
+            ll.addView(ll2);
+        }
+        Button create = new Button(this);
+        create.setText("Create Army");
+        ll.addView(create);
 
-
-            //try
-            //{
-            ch2.setText(files[i].getName());
-
-                ch2.setTextColor(Color.BLACK);
-            /*}
-            catch (JSONException e)
+        create.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
             {
-                e.printStackTrace();
-            }*/
-            ll.addView(ch2);
+
+                for (EditText text: editTexts)
+                {
+                    if (text.getText().toString().equals(""))
+                    {
+
+                    }
+                }
+                if (nm.getText().toString().equals(""))
+                {
+                    showEmptyFieldsPopup();
+                }
+                else
+                {
+                    army = new Army(nm.getText().toString());
+                    for (TextView text : textViews)
+                    {
+                        int count = 0;
+                        try
+                        {
+                            count = Integer.parseInt(editTexts.get(textViews.indexOf(text)).getText().toString());
+                        }
+                        catch (NumberFormatException e)
+                        {
+
+                        }
+
+                        for (int i = 0; i < count; i++)
+                        {
+                            army.units.add(text.getText().toString());
+                        }
+                    }
+                    army.writeToJSON();
+                    army.writeJSONToFile(getApplicationContext());
+                    startActivity(new Intent(NewArmyActivity.this, MainActivity.class));
+                }
+            }
+        });
+
+        for (final TextView text: textViews)
+        {
+            text.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    editTexts.get(textViews.indexOf(text)).setText("1");
+                }
+            });
         }
 
         setContentView(sv);
+    }
+
+    private void showEmptyFieldsPopup()
+    {
+        AlertDialog.Builder emptyFieldsBuilder = new AlertDialog.Builder(this);
+        emptyFieldsBuilder.setTitle("");
+        emptyFieldsBuilder.setMessage("Please fill all fields.");
+        emptyFieldsBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int which)
+            {
+                // Do nothing but close the dialog
+            }
+        });
+        AlertDialog emptyFields = emptyFieldsBuilder.create();
+        emptyFields.show();
     }
 
     @Override

@@ -61,7 +61,7 @@ public class NewWarjackActivity extends ActionBarActivity
             ll.addView(ll2);
         }
 
-        Button nextStep = new Button(this);
+        final Button nextStep = new Button(this);
         nextStep.setText("Continue to system layout");
         ll.addView(nextStep);
 
@@ -79,7 +79,8 @@ public class NewWarjackActivity extends ActionBarActivity
                     if (nm.getText().toString().equals(""))
                     {
                         showEmptyFieldsPopup();
-                    } else
+                    }
+                    else
                     {
                         warjack = new WarjackHP(nm.getText().toString(), 6, 6);
                         for (int i = 0; i < 6; i++)
@@ -95,6 +96,8 @@ public class NewWarjackActivity extends ActionBarActivity
                         }
                         ll.addView(ch);
                         settingHP = false;
+                        nextStep.setText("Continue");
+                        nextStep.invalidate();
                         tv.setText("System Symbol:");
                         tv.invalidate();
                         nm.setText("");
@@ -131,6 +134,7 @@ public class NewWarjackActivity extends ActionBarActivity
                     {
                         warjack.writeToJSON();
                         warjack.writeJSONToFile(getApplicationContext());
+                        startActivity(new Intent(NewWarjackActivity.this, MainActivity.class));
                     }
                 }
             }
