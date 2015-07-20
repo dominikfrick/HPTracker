@@ -80,7 +80,7 @@ public class NewArmyActivity extends ActionBarActivity
 
             final EditText num = new EditText(this);
             num.setInputType(InputType.TYPE_CLASS_NUMBER);
-            num.setText("0");
+            num.setText("");
 
 
             TextView textView = new TextView(getApplicationContext());
@@ -139,14 +139,6 @@ public class NewArmyActivity extends ActionBarActivity
             @Override
             public void onClick(View v)
             {
-
-                for (EditText text: editTexts)
-                {
-                    if (text.getText().toString().equals(""))
-                    {
-
-                    }
-                }
                 if (nm.getText().toString().equals(""))
                 {
                     showEmptyFieldsPopup();
@@ -157,15 +149,10 @@ public class NewArmyActivity extends ActionBarActivity
                     for (TextView text : textViews)
                     {
                         int count = 0;
-                        try
+                        if (!editTexts.get(textViews.indexOf(text)).getText().toString().equals(""))
                         {
                             count = Integer.parseInt(editTexts.get(textViews.indexOf(text)).getText().toString());
                         }
-                        catch (NumberFormatException e)
-                        {
-
-                        }
-
                         for (int i = 0; i < count; i++)
                         {
                             army.units.add(text.getText().toString());
