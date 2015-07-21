@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NewWarcasterActivity"
+            android:name=".NewLinearActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.NewWarcaster" />
@@ -35,19 +35,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NewSoloActivity"
+            android:name=".NewColossalActivity"
             android:label="@string/app_name" >
             <intent-filter>
-                <action android:name="android.intent.action.NewSolo" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".NewTroopActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.NewTroop" />
+                <action android:name="android.intent.action.NewColossal" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

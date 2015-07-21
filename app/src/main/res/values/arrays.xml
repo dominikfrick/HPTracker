@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="card_type">
-        <item>Warcaster</item>
+        <item>Linear</item>
         <item>Warjack</item>
-        <item>Solo</item>
-        <item>Multiple Wound Troopers</item>
+        <item>Colossal</item>
     </string-array>
 </resources>

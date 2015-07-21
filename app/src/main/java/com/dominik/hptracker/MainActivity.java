@@ -27,18 +27,17 @@ public class MainActivity extends ActionBarActivity
             public void onClick(View v)
             {
                 String page = dropdown.getSelectedItem().toString();
-                if (page.equals("Warcaster"))
+                if (page.equals("Linear"))
                 {
-                    startActivity(new Intent(MainActivity.this, NewWarcasterActivity.class));
-                } else if (page.equals("Warjack"))
+                    startActivity(new Intent(MainActivity.this, NewLinearActivity.class));
+                }
+                else if (page.equals("Warjack"))
                 {
                     startActivity(new Intent(MainActivity.this, NewWarjackActivity.class));
-                } else if (page.equals("Solo"))
+                }
+                else
                 {
-                    startActivity(new Intent(MainActivity.this, NewSoloActivity.class));
-                } else
-                {
-                    startActivity(new Intent(MainActivity.this, NewTroopActivity.class));
+                    startActivity(new Intent(MainActivity.this, NewColossalActivity.class));
                 }
             }
         });
