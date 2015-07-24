@@ -55,7 +55,7 @@ public class Army
         try
         {
             jsonObject.put(Constants.NAME, name);
-            jsonObject.put(Constants.ARMY, name);
+            jsonObject.put(Constants.TYPE, Constants.ARMY);
             JSONArray jsonArray = new JSONArray(Constants.ARMYARRAY);
             for (String modelHPTemplate : units)
             {

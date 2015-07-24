@@ -20,6 +20,7 @@ public class MainActivity extends ActionBarActivity
         setContentView(R.layout.activity_main);
         Button newCardButton = (Button) findViewById(R.id.button1);
         Button newArmyButton = (Button) findViewById(R.id.newArmyButton);
+        Button loadArmyButton = (Button) findViewById(R.id.loadArmyButton);
         final Spinner dropdown = (Spinner) findViewById(R.id.dropdown1);
         newCardButton.setOnClickListener(new View.OnClickListener()
         {
@@ -47,6 +48,14 @@ public class MainActivity extends ActionBarActivity
             public void onClick(View v)
             {
                 startActivity(new Intent(MainActivity.this, NewArmyActivity.class));
+            }
+        });
+        loadArmyButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(MainActivity.this, ShowArmyActivity.class));
             }
         });
     }

@@ -1,13 +1,13 @@
 package com.dominik.hptracker;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,8 +19,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.dominik.hptracker.modelhp.Army;
-import com.dominik.hptracker.modelhp.HPBox;
-import com.dominik.hptracker.modelhp.WarjackHP;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,19 +30,19 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
-public class NewArmyActivity extends ActionBarActivity
+/**
+ * Created by Daniel on 7/24/2015.
+ */
+public class ShowArmyActivity extends Activity
 {
-    ArrayList<TextView> textViews = new ArrayList<TextView>();
-    ArrayList<EditText> editTexts = new ArrayList<EditText>();
-    Army army;
+    ArrayList<CheckBox> checkBoxes = new ArrayList<CheckBox>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
-        File f = getFilesDir();
+        File f = getDir(Constants.ARMYDIR, MODE_PRIVATE);
         File files[];
         FilenameFilter filter = new FilenameFilter()
         {
@@ -61,29 +59,18 @@ public class NewArmyActivity extends ActionBarActivity
         ll.setOrientation(LinearLayout.VERTICAL);
         sv.addView(ll);
 
-        TextView tv = new TextView(this);
-        tv.setText("Army Name:");
-        ll.addView(tv);
-
-        final EditText nm = new EditText(this);
-        nm.setText("");
-        ll.addView(nm);
+        TextView textView = new TextView(this);
+        textView.setText("Choose an army");
+        ll.addView(textView);
 
         for (int i = 0; i < files.length; i++)
         {
-            LinearLayout linearLayout = new LinearLayout(this);
-            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-            final EditText num = new EditText(this);
-            num.setInputType(InputType.TYPE_CLASS_NUMBER);
-            num.setText("");
-
-
-            TextView textView = new TextView(getApplicationContext());
+            CheckBox ch = new CheckBox(this);
             JSONObject obj;
             try
             {
-                FileInputStream fis = openFileInput(files[i].getName());
+                File file = new File(getDir(Constants.ARMYDIR, Context.MODE_PRIVATE), files[i].getName());
+                FileInputStream fis = new FileInputStream(file);
                 StringBuilder stringBuilder = new StringBuilder();
                 int c;
                 try
@@ -100,23 +87,12 @@ public class NewArmyActivity extends ActionBarActivity
                 try
                 {
                     obj = new JSONObject(stringBuilder.toString());
-                    if (obj.getString(Constants.TYPE).equals(Constants.LINEAR))
+                    if (obj.getString(Constants.TYPE).equals(Constants.ARMY))
                     {
-                        textView.setText(obj.getString(Constants.NAME) + " - " + obj.getString(Constants.HPNUMBER));
-                        textView.setTextColor(Color.BLACK);
-                        editTexts.add(num);
-                        textViews.add(textView);
-                        linearLayout.addView(num);
-                        linearLayout.addView(textView);
-                    }
-                    else if (obj.getString(Constants.TYPE).equals(Constants.WARJACK))
-                    {
-                        textView.setText(obj.getString(Constants.NAME));
-                        textView.setTextColor(Color.BLACK);
-                        editTexts.add(num);
-                        textViews.add(textView);
-                        linearLayout.addView(num);
-                        linearLayout.addView(textView);
+                        ch.setText(obj.getString(Constants.NAME));
+                        ch.setTextColor(Color.BLACK);
+                        checkBoxes.add(ch);
+                        ll.addView(ch);
                     }
                 }
                 catch (JSONException e)
@@ -128,8 +104,8 @@ public class NewArmyActivity extends ActionBarActivity
             {
                 e.printStackTrace();
             }
-            ll.addView(linearLayout);
         }
+
         Button create = new Button(this);
         create.setText("Create Army");
         ll.addView(create);
@@ -139,43 +115,29 @@ public class NewArmyActivity extends ActionBarActivity
             @Override
             public void onClick(View v)
             {
-                if (nm.getText().toString().equals(""))
+                boolean oneChecked = false;
+                boolean moreChecked = false;
+                for (CheckBox ch: checkBoxes)
                 {
-                    showEmptyFieldsPopup();
-                }
-                else
-                {
-                    army = new Army(nm.getText().toString());
-                    for (TextView text : textViews)
+                    if (ch.isChecked())
                     {
-                        int count = 0;
-                        if (!editTexts.get(textViews.indexOf(text)).getText().toString().equals(""))
+                        if (!oneChecked)
                         {
-                            count = Integer.parseInt(editTexts.get(textViews.indexOf(text)).getText().toString());
+                            oneChecked = true;
                         }
-                        for (int i = 0; i < count; i++)
+                        else
                         {
-                            army.units.add(text.getText().toString());
+                            moreChecked = true;
                         }
                     }
-                    army.writeToJSON();
-                    army.writeJSONToFile(getApplicationContext());
-                    startActivity(new Intent(NewArmyActivity.this, MainActivity.class));
+                }
+                if (!oneChecked || moreChecked) showEmptyFieldsPopup();
+                else
+                {
+                    //ALL CODE HERE
                 }
             }
         });
-
-        for (final TextView text: textViews)
-        {
-            text.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    editTexts.get(textViews.indexOf(text)).setText("1");
-                }
-            });
-        }
 
         setContentView(sv);
     }
@@ -184,7 +146,7 @@ public class NewArmyActivity extends ActionBarActivity
     {
         AlertDialog.Builder emptyFieldsBuilder = new AlertDialog.Builder(this);
         emptyFieldsBuilder.setTitle("");
-        emptyFieldsBuilder.setMessage("Please fill all fields.");
+        emptyFieldsBuilder.setMessage("Please choose one and only one army.");
         emptyFieldsBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
         {
             public void onClick(DialogInterface dialog, int which)
