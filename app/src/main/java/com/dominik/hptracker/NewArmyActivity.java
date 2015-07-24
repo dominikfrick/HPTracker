@@ -51,14 +51,10 @@ public class NewArmyActivity extends ActionBarActivity
             @Override
             public boolean accept(File dir, String filename)
             {
-                if (filename.length() >= 5 && filename.substring(filename.length()-5).toUpperCase().equals(".JSON"))
-                {
-                    return true;
-                }
-                return false;
+                return  filename.length() >= 5 && filename.substring(filename.length()-5).toUpperCase().equals(".JSON");
             }
         };
-        files = f.listFiles();
+        files = f.listFiles(filter);
 
         ScrollView sv = new ScrollView(this);
         final LinearLayout ll = new LinearLayout(this);
@@ -75,8 +71,8 @@ public class NewArmyActivity extends ActionBarActivity
 
         for (int i = 0; i < files.length; i++)
         {
-            LinearLayout ll2 = new LinearLayout(this);
-            ll2.setOrientation(LinearLayout.HORIZONTAL);
+            LinearLayout linearLayout = new LinearLayout(this);
+            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
 
             final EditText num = new EditText(this);
             num.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -104,20 +100,20 @@ public class NewArmyActivity extends ActionBarActivity
                 try
                 {
                     obj = new JSONObject(stringBuilder.toString());
-                    if (obj.getString(Constants.TYPE).equals("linear"))
+                    if (obj.getString(Constants.TYPE).equals(Constants.LINEAR))
                     {
                         textView.setText(obj.getString(Constants.NAME) + " - " + obj.getString(Constants.HPNUMBER));
                         textView.setTextColor(Color.BLACK);
                     }
-                    else if (obj.getString(Constants.TYPE).equals("warjack"))
+                    else if (obj.getString(Constants.TYPE).equals(Constants.WARJACK))
                     {
                         textView.setText(obj.getString(Constants.NAME));
                         textView.setTextColor(Color.BLACK);
                     }
                     editTexts.add(num);
                     textViews.add(textView);
-                    ll2.addView(num);
-                    ll2.addView(textView);
+                    linearLayout.addView(num);
+                    linearLayout.addView(textView);
                 }
                 catch (JSONException e)
                 {
@@ -128,7 +124,7 @@ public class NewArmyActivity extends ActionBarActivity
             {
                 e.printStackTrace();
             }
-            ll.addView(ll2);
+            ll.addView(linearLayout);
         }
         Button create = new Button(this);
         create.setText("Create Army");

@@ -15,4 +15,7 @@ public class Constants
     public static String WARJACK = "warjack";
     public static String LINEAR = "linear";
     public static String ARMY = "army";
+
+    //Directories
+    public static String ARMYDIR = "armies";
 }
