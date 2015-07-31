@@ -55,7 +55,7 @@ public class MainActivity extends ActionBarActivity
             @Override
             public void onClick(View v)
             {
-                startActivity(new Intent(MainActivity.this, ShowArmyActivity.class));
+                startActivity(new Intent(MainActivity.this, DisplayArmiesActivity.class));
             }
         });
     }
