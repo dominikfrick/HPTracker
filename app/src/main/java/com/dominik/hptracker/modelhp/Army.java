@@ -73,10 +73,7 @@ public class Army
     {
         try
         {
-            File file = new File(context.getDir(Constants.ARMYDIR, Context.MODE_PRIVATE), name + ".json");
-            //file.createNewFile(); delete this if it is unnecessary
-
-            FileOutputStream fos = new FileOutputStream(file);
+            FileOutputStream fos = context.openFileOutput(name + ".json", Context.MODE_PRIVATE);
             fos.write(jsonObject.toString().getBytes());
             fos.close();
         }
