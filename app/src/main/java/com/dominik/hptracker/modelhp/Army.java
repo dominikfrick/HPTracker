@@ -56,11 +56,12 @@ public class Army
         {
             jsonObject.put(Constants.NAME, name);
             jsonObject.put(Constants.TYPE, Constants.ARMY);
-            JSONArray jsonArray = new JSONArray(Constants.ARMYARRAY);
+            JSONArray jsonArray = new JSONArray();
             for (String modelHPTemplate : units)
             {
                 jsonArray.put(modelHPTemplate);
             }
+            jsonObject.put(Constants.ARMYARRAY, jsonArray);
         }
         catch (JSONException e)
         {

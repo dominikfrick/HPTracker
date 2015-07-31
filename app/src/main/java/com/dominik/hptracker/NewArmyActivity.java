@@ -38,6 +38,7 @@ public class NewArmyActivity extends ActionBarActivity
     ArrayList<TextView> textViews = new ArrayList<TextView>();
     ArrayList<EditText> editTexts = new ArrayList<EditText>();
     Army army;
+    File files[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,7 +46,6 @@ public class NewArmyActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
 
         File f = getFilesDir();
-        File files[];
         FilenameFilter filter = new FilenameFilter()
         {
             @Override
@@ -134,6 +134,19 @@ public class NewArmyActivity extends ActionBarActivity
         create.setText("Create Army");
         ll.addView(create);
 
+        Button delete = new Button(this);
+        delete.setText("Delete Selected Units");
+        ll.addView(delete);
+
+        delete.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                createConfirmDeleteDialog();
+            }
+        });
+
         create.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -190,6 +203,36 @@ public class NewArmyActivity extends ActionBarActivity
             public void onClick(DialogInterface dialog, int which)
             {
                 // Do nothing but close the dialog
+            }
+        });
+        AlertDialog emptyFields = emptyFieldsBuilder.create();
+        emptyFields.show();
+    }
+
+    private void createConfirmDeleteDialog()
+    {
+        AlertDialog.Builder emptyFieldsBuilder = new AlertDialog.Builder(this);
+        emptyFieldsBuilder.setTitle("");
+        emptyFieldsBuilder.setMessage("Are you sure that you want to delete?");
+        emptyFieldsBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int which)
+            {
+                for (TextView text: textViews)
+                {
+                    if (!editTexts.get(textViews.indexOf(text)).getText().toString().equals(""))
+                    {
+                        files[textViews.indexOf(text)].delete();
+                    }
+                }
+                startActivity(new Intent(NewArmyActivity.this, MainActivity.class));
+            }
+        });
+        emptyFieldsBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int which)
+            {
+
             }
         });
         AlertDialog emptyFields = emptyFieldsBuilder.create();
