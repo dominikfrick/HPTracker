@@ -15,10 +15,10 @@ import java.io.FileOutputStream;
 /**
  * Created by Dominik on 6/18/2015.
  */
-abstract class ModelHPTemplate
+public abstract class ModelHPTemplate
 {
-    String name;
-    String type;
+    public String name;
+    public String type;
     JSONObject jsonObject;
 
     public ModelHPTemplate(String name, String type)

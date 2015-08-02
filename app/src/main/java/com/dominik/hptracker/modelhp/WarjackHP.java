@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.ContentHandler;
+
 /**
  * Created by Dominik on 6/19/2015.
  */
@@ -36,7 +38,11 @@ public class WarjackHP extends ModelHPTemplate
                 for (int j = 0; j < hpRow.length(); j++)
                 {
                     String system = hpRow.getString(j);
-                    if (!system.equals(""))
+                    if(system.equals(Constants.NULL))
+                    {
+                        HP[i][j] = null;
+                    }
+                    else
                     {
                         HP[i][j] = new HPBox(system);
                     }
@@ -54,36 +60,26 @@ public class WarjackHP extends ModelHPTemplate
     {
         super.writeToJSON();
 
-        JSONArray rows = new JSONArray();
-
-        for (int i = 0; i < HP.length; i++)
-        {
-            JSONArray row = new JSONArray();
-            for (int j = 0; j < HP[i].length; j++)
-            {
-                if(HP[i][j] != null)
-                {
-                    try
-                    {
-                        row.put(j, HP[i][j].system);
-                    } catch (JSONException e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            try
-            {
-                rows.put(i, row);
-            }
-            catch (JSONException e)
-            {
-                e.printStackTrace();
-            }
-        }
-
         try
         {
+            JSONArray rows = new JSONArray();
+
+            for (int i = 0; i < HP.length; i++)
+            {
+                JSONArray row = new JSONArray();
+                for (int j = 0; j < HP[i].length; j++)
+                {
+                    if(HP[i][j] != null)
+                    {
+                        row.put(j, HP[i][j].system);
+                    }
+                    else
+                    {
+                        row.put(j, Constants.NULL);
+                    }
+                }
+                rows.put(i, row);
+            }
             jsonObject.put(Constants.HPARRAY, rows);
         }
         catch (JSONException e)

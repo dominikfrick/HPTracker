@@ -10,6 +10,8 @@ public class Constants
     public static String TYPE = "type";
     public static String HPNUMBER = "HPnumber";
     public static String ARMYARRAY = "ArmyArray";
+    public static String NULL = "NULL";
+
 
     //types
     public static String WARJACK = "warjack";
