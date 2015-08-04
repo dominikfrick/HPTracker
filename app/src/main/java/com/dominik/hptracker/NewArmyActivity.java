@@ -100,24 +100,12 @@ public class NewArmyActivity extends ActionBarActivity
                 try
                 {
                     obj = new JSONObject(stringBuilder.toString());
-                    if (obj.getString(Constants.TYPE).equals(Constants.LINEAR))
-                    {
-                        textView.setText(obj.getString(Constants.NAME) + " - " + obj.getString(Constants.HPNUMBER));
-                        textView.setTextColor(Color.BLACK);
-                        editTexts.add(num);
-                        textViews.add(textView);
-                        linearLayout.addView(num);
-                        linearLayout.addView(textView);
-                    }
-                    else if (obj.getString(Constants.TYPE).equals(Constants.WARJACK))
-                    {
-                        textView.setText(obj.getString(Constants.NAME));
-                        textView.setTextColor(Color.BLACK);
-                        editTexts.add(num);
-                        textViews.add(textView);
-                        linearLayout.addView(num);
-                        linearLayout.addView(textView);
-                    }
+                    textView.setText(obj.getString(Constants.NAME));
+                    textView.setTextColor(Color.BLACK);
+                    editTexts.add(num);
+                    textViews.add(textView);
+                    linearLayout.addView(num);
+                    linearLayout.addView(textView);
                 }
                 catch (JSONException e)
                 {
