@@ -19,6 +19,7 @@ public class LinearHP extends ModelHPTemplate
     {
         super(name, Constants.LINEAR);
         maxHP = HP;
+        currentHP = maxHP;
     }
 
     public LinearHP(JSONObject jsonObject)
