@@ -17,7 +17,7 @@ import com.dominik.hptracker.modelhp.WarjackHP;
 
 public class NewWarjackActivity extends ActionBarActivity
 {
-    private CheckBox[][] checkBoxes;
+    private ToggleButton[][] toggleButtons;
     boolean settingHP = true;
     WarjackHP warjack;
 
@@ -26,9 +26,11 @@ public class NewWarjackActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
 
-        checkBoxes = new CheckBox[6][6];
+        toggleButtons = new ToggleButton[6][6];
 
-        ScrollView sv = new ScrollView(this);
+        ScrollView sv1 = new ScrollView(this);
+        HorizontalScrollView sv = new HorizontalScrollView(this);
+        sv1.addView(sv);
         final LinearLayout ll = new LinearLayout(this);
         ll.setOrientation(LinearLayout.VERTICAL);
         sv.addView(ll);
@@ -45,18 +47,19 @@ public class NewWarjackActivity extends ActionBarActivity
         tv2.setText("Select all applicable squares.");
         ll.addView(tv2);
 
+
         for (int i = 0; i < 6; i++)
         {
             LinearLayout ll2 = new LinearLayout(this);
             ll2.setOrientation(LinearLayout.HORIZONTAL);
             for (int j = 0; j <6; j++)
             {
-                CheckBox ch = new CheckBox(getApplicationContext());
-                checkBoxes[i][j] = ch;
-                ch.setText("");
-                ch.setBackgroundColor(0x00FF00);
-                ch.setHighlightColor(0x00FF00);
-                ll2.addView(ch);
+                ToggleButton tb = new ToggleButton(getApplicationContext());
+                toggleButtons[i][j] = tb;
+                tb.setText(" ");
+                tb.setTextOn(" ");
+                tb.setTextOff(" ");
+                ll2.addView(tb);
             }
             ll.addView(ll2);
         }
@@ -87,10 +90,10 @@ public class NewWarjackActivity extends ActionBarActivity
                         {
                             for (int j = 0; j < 6; j++)
                             {
-                                if (checkBoxes[i][j].isChecked())
+                                if (toggleButtons[i][j].isChecked())
                                 {
                                     warjack.HP[i][j] = new HPBox("");
-                                    checkBoxes[i][j].setChecked(false);
+                                    toggleButtons[i][j].setChecked(false);
                                 }
                             }
                         }
@@ -103,45 +106,51 @@ public class NewWarjackActivity extends ActionBarActivity
                         nm.setText("");
                         nm.invalidate();
                     }
-                } else
+                }
+                else
                 {
-                    if (!ch.isChecked())
+                    if (nm.getText().length() > 1)
                     {
-                        if (nm.getText().toString().equals(""))
-                        {
-                            showEmptyFieldsPopup();
-                        } else
-                        {
-                            for (int i = 0; i < 6; i++)
-                            {
-                                for (int j = 0; j < 6; j++)
-                                {
-                                    if (checkBoxes[i][j].isChecked())
-                                    {
-                                        if (warjack.HP[i][j] != null)
-                                        {
-                                            warjack.HP[i][j].system = nm.getText().toString();
-                                        }
-                                    }
-                                    checkBoxes[i][j].setChecked(false);
-                                }
-                            }
-                        }
-                        nm.setText("");
-                        nm.invalidate();
+                        showMultipleCharacterPopup();
                     }
                     else
                     {
-                        warjack.writeToJSON();
-                        warjack.writeJSONToFile(getApplicationContext());
-                        startActivity(new Intent(NewWarjackActivity.this, MainActivity.class));
+                        if (!ch.isChecked())
+                        {
+                            if (nm.getText().toString().equals(""))
+                            {
+                                showEmptyFieldsPopup();
+                            } else
+                            {
+                                for (int i = 0; i < 6; i++)
+                                {
+                                    for (int j = 0; j < 6; j++)
+                                    {
+                                        if (toggleButtons[i][j].isChecked())
+                                        {
+                                            if (warjack.HP[i][j] != null)
+                                            {
+                                                warjack.HP[i][j].system = nm.getText().toString();
+                                            }
+                                        }
+                                        toggleButtons[i][j].setChecked(false);
+                                    }
+                                }
+                            }
+                            nm.setText("");
+                            nm.invalidate();
+                        } else
+                        {
+                            warjack.writeToJSON();
+                            warjack.writeJSONToFile(getApplicationContext());
+                            startActivity(new Intent(NewWarjackActivity.this, MainActivity.class));
+                        }
                     }
                 }
             }
         });
 
-
-        setContentView(sv);
+        setContentView(sv1);
     }
 
     private void showEmptyFieldsPopup()
@@ -149,6 +158,22 @@ public class NewWarjackActivity extends ActionBarActivity
         AlertDialog.Builder emptyFieldsBuilder = new AlertDialog.Builder(this);
         emptyFieldsBuilder.setTitle("");
         emptyFieldsBuilder.setMessage("Please fill all fields.");
+        emptyFieldsBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int which)
+            {
+                // Do nothing but close the dialog
+            }
+        });
+        AlertDialog emptyFields = emptyFieldsBuilder.create();
+        emptyFields.show();
+    }
+
+    private void showMultipleCharacterPopup()
+    {
+        AlertDialog.Builder emptyFieldsBuilder = new AlertDialog.Builder(this);
+        emptyFieldsBuilder.setTitle("");
+        emptyFieldsBuilder.setMessage("Make the symbol only one letter.");
         emptyFieldsBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
         {
             public void onClick(DialogInterface dialog, int which)
