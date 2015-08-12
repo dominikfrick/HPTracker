@@ -80,7 +80,7 @@ public class NewWarjackActivity extends ActionBarActivity
             {
                 if (settingHP)
                 {
-                    if (nm.getText().toString().equals(""))
+                    if (nm.getText().toString().equals("") || nm.getText().toString().contains("/") || nm.getText().toString().contains("\\"))
                     {
                         showEmptyFieldsPopup();
                     }
@@ -158,7 +158,7 @@ public class NewWarjackActivity extends ActionBarActivity
     {
         AlertDialog.Builder emptyFieldsBuilder = new AlertDialog.Builder(this);
         emptyFieldsBuilder.setTitle("");
-        emptyFieldsBuilder.setMessage("Please fill all fields.");
+        emptyFieldsBuilder.setMessage("Please fill all fields or remove slashes from the name.");
         emptyFieldsBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
         {
             public void onClick(DialogInterface dialog, int which)

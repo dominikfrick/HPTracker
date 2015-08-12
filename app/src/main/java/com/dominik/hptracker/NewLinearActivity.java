@@ -32,7 +32,7 @@ public class NewLinearActivity extends ActionBarActivity
 
     public void createJSONInstance(View v)
     {
-        if(tempName.getText().toString().equals("")|| hp.getText().toString().equals(""))
+        if(tempName.getText().toString().equals("")|| hp.getText().toString().equals("") || tempName.getText().toString().contains("/") || tempName.getText().toString().contains("\\"))
         {
             showEmptyFieldsPopup();
         }
@@ -52,7 +52,7 @@ public class NewLinearActivity extends ActionBarActivity
     {
         AlertDialog.Builder emptyFieldsBuilder = new AlertDialog.Builder(this);
         emptyFieldsBuilder.setTitle("");
-        emptyFieldsBuilder.setMessage("Please fill all fields.");
+        emptyFieldsBuilder.setMessage("Please fill all fields or remove slashes from the name.");
         emptyFieldsBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener()
         {
             public void onClick(DialogInterface dialog, int which)
