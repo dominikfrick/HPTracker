@@ -228,10 +228,19 @@ public class ChooseArmyActivity extends Activity
                         {
                             for (ModelHPTemplate unit : units)
                             {
-                                ModelHPTemplate temp = unit;
                                 if (name.equals(unit.name))
                                 {
-                                    CurrentArmyInfo.getInstance().units.add(temp);
+                                    if (unit.type.equals(Constants.LINEAR))
+                                    {
+                                        LinearHP temp = new LinearHP(unit.name, ((LinearHP)unit).maxHP);
+                                        CurrentArmyInfo.getInstance().units.add(temp);
+                                    }
+                                    else if (unit.type.equals(Constants.WARJACK))
+                                    {
+                                        WarjackHP temp = new WarjackHP(unit.name, ((WarjackHP)unit).HP[0].length, ((WarjackHP)unit).HP.length);
+                                        temp.HP = ((WarjackHP) unit).HP.clone();
+                                        CurrentArmyInfo.getInstance().units.add(temp);
+                                    }
                                 }
                             }
                         }
