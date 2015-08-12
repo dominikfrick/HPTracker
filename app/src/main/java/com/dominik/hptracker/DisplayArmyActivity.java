@@ -53,26 +53,37 @@ public class DisplayArmyActivity extends ActionBarActivity
                 healthBar.setOrientation(LinearLayout.HORIZONTAL);
                 if (((LinearHP)unit).maxHP > 5)
                 {
-                    final EditText currentHealth = new EditText(this);
-                    currentHealth.setInputType(InputType.TYPE_CLASS_NUMBER);
-                    currentHealth.setText(((LinearHP) unit).currentHP);
+                    final TextView currentHealth = new TextView(this);
+                    ((LinearHP) unit).currentHP = ((LinearHP) unit).maxHP;
+                    currentHealth.setText(Integer.toString(((LinearHP) unit).currentHP));
                     currentHealth.setClickable(false);
+                    currentHealth.setTextColor(Color.BLACK);
                     healthBar.addView(currentHealth);
-                    final ProgressBar healthRange = new ProgressBar(this);
-                    healthRange.setMax(((LinearHP) unit).maxHP);
-                    healthRange.setProgress(((LinearHP) unit).currentHP);
+
+                    final ProgressBar HPBar = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
+                    HPBar.setMax(((LinearHP) unit).maxHP);
+                    HPBar.setProgress(((LinearHP) unit).currentHP);
+                    ll.addView(HPBar);
+
                     Button add = new Button(this);
+                    add.setText("Add");
+                    add.setTextColor(Color.BLACK);
                     Button subtract = new Button(this);
+                    subtract.setText("Remove");
+                    subtract.setTextColor(Color.BLACK);
                     add.setOnClickListener(new View.OnClickListener()
                     {
                         @Override
                         public void onClick(View v)
                         {
-                            ((LinearHP) unit).currentHP++;
-                            currentHealth.setText(((LinearHP) unit).currentHP);
-                            healthRange.setProgress(((LinearHP) unit).currentHP);
-                            healthRange.invalidate();
-                            currentHealth.invalidate();
+                            if (((LinearHP) unit).currentHP < ((LinearHP) unit).maxHP)
+                            {
+                                ((LinearHP) unit).currentHP++;
+                                currentHealth.setText(Integer.toString(((LinearHP) unit).currentHP));
+                                HPBar.setProgress(((LinearHP) unit).currentHP);
+                                HPBar.invalidate();
+                                currentHealth.invalidate();
+                            }
                         }
                     });
                     subtract.setOnClickListener(new View.OnClickListener()
@@ -80,13 +91,18 @@ public class DisplayArmyActivity extends ActionBarActivity
                         @Override
                         public void onClick(View v)
                         {
-                            ((LinearHP) unit).currentHP--;
-                            currentHealth.setText(((LinearHP) unit).currentHP);
-                            healthRange.setProgress(((LinearHP) unit).currentHP);
-                            healthRange.invalidate();
-                            currentHealth.invalidate();
+                            if (((LinearHP) unit).currentHP > 0)
+                            {
+                                ((LinearHP) unit).currentHP--;
+                                currentHealth.setText(Integer.toString(((LinearHP) unit).currentHP));
+                                HPBar.setProgress(((LinearHP) unit).currentHP);
+                                HPBar.invalidate();
+                                currentHealth.invalidate();
+                            }
                         }
                     });
+                    healthBar.addView(subtract);
+                    healthBar.addView(add);
                 }
                 else
                 {
