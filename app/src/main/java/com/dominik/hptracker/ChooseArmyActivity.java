@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -267,7 +268,7 @@ public class ChooseArmyActivity extends Activity
         {
             public void onClick(DialogInterface dialog, int which)
             {
-                for (CheckBox checkBox:checkBoxes)
+                for (CheckBox checkBox : checkBoxes)
                 {
                     if (checkBox.isChecked())
                     {
@@ -277,7 +278,7 @@ public class ChooseArmyActivity extends Activity
                 startActivity(new Intent(ChooseArmyActivity.this, MainActivity.class));
             }
         });
-        emptyFieldsBuilder.setNegativeButton("Cancel",new DialogInterface.OnClickListener()
+        emptyFieldsBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
         {
             public void onClick(DialogInterface dialog, int which)
             {
@@ -311,5 +312,11 @@ public class ChooseArmyActivity extends Activity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig)
+    {
+
     }
 }

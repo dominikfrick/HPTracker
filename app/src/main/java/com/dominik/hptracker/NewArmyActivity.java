@@ -3,6 +3,7 @@ package com.dominik.hptracker;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -206,7 +207,7 @@ public class NewArmyActivity extends ActionBarActivity
         {
             public void onClick(DialogInterface dialog, int which)
             {
-                for (TextView text: textViews)
+                for (TextView text : textViews)
                 {
                     if (!editTexts.get(textViews.indexOf(text)).getText().toString().equals(""))
                     {
@@ -250,5 +251,11 @@ public class NewArmyActivity extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig)
+    {
+
     }
 }
