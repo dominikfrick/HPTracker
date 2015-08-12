@@ -53,12 +53,12 @@ public class DisplayArmyActivity extends ActionBarActivity
                 healthBar.setOrientation(LinearLayout.HORIZONTAL);
                 if (((LinearHP)unit).maxHP > 5)
                 {
-                    EditText currentHealth = new EditText(this);
+                    final EditText currentHealth = new EditText(this);
                     currentHealth.setInputType(InputType.TYPE_CLASS_NUMBER);
                     currentHealth.setText(((LinearHP) unit).currentHP);
                     currentHealth.setClickable(false);
                     healthBar.addView(currentHealth);
-                    ProgressBar healthRange = new ProgressBar(this);
+                    final ProgressBar healthRange = new ProgressBar(this);
                     healthRange.setMax(((LinearHP) unit).maxHP);
                     healthRange.setProgress(((LinearHP) unit).currentHP);
                     Button add = new Button(this);
