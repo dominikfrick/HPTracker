@@ -83,8 +83,7 @@ public class NewWarjackActivity extends ActionBarActivity
                     if (nm.getText().toString().equals("") || nm.getText().toString().contains("/") || nm.getText().toString().contains("\\"))
                     {
                         showEmptyFieldsPopup();
-                    }
-                    else
+                    } else
                     {
                         warjack = new WarjackHP(nm.getText().toString(), 6, 6);
                         for (int i = 0; i < 6; i++)
@@ -107,8 +106,7 @@ public class NewWarjackActivity extends ActionBarActivity
                         nm.setText("");
                         nm.invalidate();
                     }
-                }
-                else
+                } else
                 {
                     if (nm.getText().length() > 1)
                     {
@@ -116,39 +114,36 @@ public class NewWarjackActivity extends ActionBarActivity
                     }
                     else
                     {
-                        if (!ch.isChecked())
+                        if (nm.getText().toString().equals(""))
                         {
-                            if (nm.getText().toString().equals(""))
+                            showEmptyFieldsPopup();
+                        } else
+                        {
+                            for (int i = 0; i < 6; i++)
                             {
-                                showEmptyFieldsPopup();
-                            } else
-                            {
-                                for (int i = 0; i < 6; i++)
+                                for (int j = 0; j < 6; j++)
                                 {
-                                    for (int j = 0; j < 6; j++)
+                                    if (toggleButtons[i][j].isChecked())
                                     {
-                                        if (toggleButtons[i][j].isChecked())
+                                        if (warjack.HP[i][j] != null)
                                         {
-                                            if (warjack.HP[i][j] != null)
-                                            {
-                                                warjack.HP[i][j].system = nm.getText().toString();
-                                            }
+                                            warjack.HP[i][j].system = nm.getText().toString();
                                         }
-                                        toggleButtons[i][j].setChecked(false);
                                     }
+                                    toggleButtons[i][j].setChecked(false);
                                 }
                             }
-                            nm.setText("");
-                            nm.invalidate();
-                        } else
+                        }
+                        nm.setText("");
+                        nm.invalidate();
+                        if (ch.isChecked())
                         {
                             warjack.writeToJSON();
                             warjack.writeJSONToFile(getApplicationContext());
-                            startActivity(new Intent(NewWarjackActivity.this, MainActivity.class));
+                            startActivity(new Intent(NewWarjackActivity.this, MainActivity.class));}
                         }
-                    }
                 }
-            }
+                }
         });
 
         setContentView(sv1);
