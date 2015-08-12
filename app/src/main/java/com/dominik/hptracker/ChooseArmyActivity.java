@@ -18,6 +18,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.dominik.hptracker.modelhp.Army;
+import com.dominik.hptracker.modelhp.HPBox;
 import com.dominik.hptracker.modelhp.LinearHP;
 import com.dominik.hptracker.modelhp.ModelHPTemplate;
 import com.dominik.hptracker.modelhp.WarjackHP;
@@ -30,6 +31,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -238,7 +240,21 @@ public class ChooseArmyActivity extends Activity
                                     else if (unit.type.equals(Constants.WARJACK))
                                     {
                                         WarjackHP temp = new WarjackHP(unit.name, ((WarjackHP)unit).HP[0].length, ((WarjackHP)unit).HP.length);
-                                        temp.HP = ((WarjackHP) unit).HP.clone();
+                                        for (int i = 0; i <((WarjackHP) unit).HP[0].length; i++)
+                                        {
+                                            for (int j = 0; j < ((WarjackHP) unit).HP.length; j++)
+                                            {
+                                                try
+                                                {
+                                                    temp.HP[i][j] = new HPBox(((WarjackHP) unit).HP[i][j].system);
+                                                    temp.HP[i][j].damaged = ((WarjackHP) unit).HP[i][j].damaged;
+                                                }
+                                                catch (Exception e)
+                                                {
+
+                                                }
+                                            }
+                                        }
                                         CurrentArmyInfo.getInstance().units.add(temp);
                                     }
                                 }
