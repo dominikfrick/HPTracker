@@ -7,13 +7,16 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -48,32 +51,71 @@ public class DisplayArmyActivity extends ActionBarActivity
             {
                 LinearLayout healthBar = new LinearLayout(getApplicationContext());
                 healthBar.setOrientation(LinearLayout.HORIZONTAL);
-                for (int i = 0; i < ((LinearHP) unit).maxHP; i++)
+                if (((LinearHP)unit).maxHP > 5)
                 {
-                    final ToggleButton tb = new ToggleButton(getApplicationContext());
-                    tb.setText(" ");
-                    tb.setTextOn(" ");
-                    tb.setTextOff(" ");
-                    if (i < ((LinearHP) unit).currentHP)
-                    {
-                        tb.setChecked(true);
-                    }
-                    tb.setOnClickListener(new View.OnClickListener()
+                    EditText currentHealth = new EditText(this);
+                    currentHealth.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    currentHealth.setText(((LinearHP) unit).currentHP);
+                    currentHealth.setClickable(false);
+                    healthBar.addView(currentHealth);
+                    ProgressBar healthRange = new ProgressBar(this);
+                    healthRange.setMax(((LinearHP) unit).maxHP);
+                    healthRange.setProgress(((LinearHP) unit).currentHP);
+                    Button add = new Button(this);
+                    Button subtract = new Button(this);
+                    add.setOnClickListener(new View.OnClickListener()
                     {
                         @Override
                         public void onClick(View v)
                         {
-                            if (tb.isChecked())
-                            {
-                                ((LinearHP) unit).currentHP++;
-                            }
-                            else
-                            {
-                                ((LinearHP) unit).currentHP --;
-                            }
+                            ((LinearHP) unit).currentHP++;
+                            currentHealth.setText(((LinearHP) unit).currentHP);
+                            healthRange.setProgress(((LinearHP) unit).currentHP);
+                            healthRange.invalidate();
+                            currentHealth.invalidate();
                         }
                     });
-                    healthBar.addView(tb);
+                    subtract.setOnClickListener(new View.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View v)
+                        {
+                            ((LinearHP) unit).currentHP--;
+                            currentHealth.setText(((LinearHP) unit).currentHP);
+                            healthRange.setProgress(((LinearHP) unit).currentHP);
+                            healthRange.invalidate();
+                            currentHealth.invalidate();
+                        }
+                    });
+                }
+                else
+                {
+                    for (int i = 0; i < ((LinearHP) unit).maxHP; i++)
+                    {
+                        final ToggleButton tb = new ToggleButton(getApplicationContext());
+                        tb.setText(" ");
+                        tb.setTextOn(" ");
+                        tb.setTextOff(" ");
+                        if (i < ((LinearHP) unit).currentHP)
+                        {
+                            tb.setChecked(true);
+                        }
+                        tb.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                if (tb.isChecked())
+                                {
+                                    ((LinearHP) unit).currentHP++;
+                                } else
+                                {
+                                    ((LinearHP) unit).currentHP--;
+                                }
+                            }
+                        });
+                        healthBar.addView(tb);
+                    }
                 }
                 ll.addView(healthBar);
             }

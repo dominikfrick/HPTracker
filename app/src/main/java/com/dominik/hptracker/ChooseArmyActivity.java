@@ -228,9 +228,10 @@ public class ChooseArmyActivity extends Activity
                         {
                             for (ModelHPTemplate unit : units)
                             {
+                                ModelHPTemplate temp = unit;
                                 if (name.equals(unit.name))
                                 {
-                                    CurrentArmyInfo.getInstance().units.add(unit);
+                                    CurrentArmyInfo.getInstance().units.add(temp);
                                 }
                             }
                         }
