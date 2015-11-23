@@ -117,7 +117,8 @@ public class NewWarjackActivity extends ActionBarActivity
                         if (nm.getText().toString().equals(""))
                         {
                             showEmptyFieldsPopup();
-                        } else
+                        }
+                        else
                         {
                             for (int i = 0; i < 6; i++)
                             {
