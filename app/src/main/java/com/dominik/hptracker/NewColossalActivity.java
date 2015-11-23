@@ -179,7 +179,7 @@ public class NewColossalActivity extends ActionBarActivity
                         nm.setText("");
                         nm.invalidate();
 
-                        if (!ch.isChecked())
+                        if (ch.isChecked())
                         {
                             warjack.writeToJSON();
                             warjack.writeJSONToFile(getApplicationContext());
