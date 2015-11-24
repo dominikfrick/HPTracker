@@ -58,4 +58,15 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email files"
+        android:id="@+id/emailFilesButton"
+        android:layout_below="@+id/loadArmyButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/loadArmyButton"
+        android:layout_alignEnd="@+id/loadArmyButton"/>
+
 </RelativeLayout>
